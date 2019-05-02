@@ -31,6 +31,8 @@ namespace pong {
 
 		ofxPanel gui;
 
+		ofSoundPlayer  goal;
+
 		ofVec2f screen_dims_; //current screen dimensions
 
 		bool should_update_ = true;

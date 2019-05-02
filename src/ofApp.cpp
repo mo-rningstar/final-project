@@ -13,6 +13,10 @@ void ofApp::setup()
 	srand(static_cast<unsigned>(time(0)));
 
 	ball_.setPosition(window_width_ / 2, window_width_ / 2);
+
+	goal.load("beep.mp3");
+	goal.setMultiPlay(true);
+	goal.setVolume(0.75f);
 }
 
 void ofApp::update()
@@ -127,11 +131,13 @@ void ofApp::update()
 				ball_.setPosition(ofGetWindowWidth() / 2, ofGetWindowHeight() / 2);
 				ball_.setVelocity(ofRandom(-5, 5), ofRandom(-5, 5));
 				player2_.incScore();
+				goal.play();
 			}
 			else if (ball_.getPosition().x > ofGetWindowWidth()) {
 				ball_.setPosition(ofGetWindowWidth() / 2, ofGetWindowHeight() / 2);
 				ball_.setVelocity(ofRandom(-5, 5), ofRandom(-5, 5));
 				player1_.incScore();
+				goal.play();
 			}
 
 			//bounce off bottom and top walls
