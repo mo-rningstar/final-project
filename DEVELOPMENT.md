@@ -14,3 +14,6 @@ Split Pong game into 3 classes
 
 05/01/19
   * created entirely new project to fix LNK1168 error. paddles, ball, and drawings finally showing up
+  * worked on collision logic, finalizing on finding intersection of ball movement vector and paddle length
+    * originally, had just looked at coordinate position but incredibly buggy and unreliable
+  *

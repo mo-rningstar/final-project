@@ -1,5 +1,11 @@
 #include "Ball.h"
 
+Ball::Ball(int radius)
+{
+	radius_ = radius;
+	velocity_.set(ofRandom(-5, 5), ofRandom(-5, 5));
+}
+
 ofRectangle Ball::getRectangle()
 {
 	return ball_square_;
@@ -15,12 +21,7 @@ ofColor Ball::getColor()
 	return color_;
 }
 
-Ball::Ball(int radius)
-{
-	radius_ = radius;
-}
-
-Point Ball::getPosition()
+ofVec2f Ball::getPosition()
 {
 	return current_position_;
 }
@@ -30,10 +31,14 @@ void Ball::setPosition(int x, int y)
 	current_position_.set(x, y);
 }
 
+ofVec2f Ball::getVelocity()
+{
+	return velocity_;
+}
+
 void Ball::setVelocity(int xVelocity, int yVelocity)
 {
-	velocity[0] = xVelocity;
-	velocity[1] = yVelocity;
+	velocity_.set(xVelocity, yVelocity);
 }
 
 int Ball::getRadius()
@@ -43,16 +48,15 @@ int Ball::getRadius()
 
 void Ball::move()
 {
-	current_position_.set(current_position_.x + velocity[0], current_position_.y + velocity[1]);
+	current_position_.set(current_position_.x + velocity_.x, current_position_.y + velocity_.y);
 }
 
-void Ball::collision(Paddle paddle, int intersection_point)
+void Ball::collision(int length, int intersection_point)
 {
-	double relativeIntersectY = (paddle.getHeight() / 2) - intersection_point;
-	double normalizedRelativeIntersectionY = (relativeIntersectY / (paddle.getHeight() / 2));
+	double relativeIntersectY = (length / 2) - intersection_point;
+	double normalizedRelativeIntersectionY = (relativeIntersectY / (length / 2));
 	double bounceAngle = normalizedRelativeIntersectionY * kmax_bounce_angle_;
-	velocity[0] = kball_speed_ * cos(bounceAngle);
-	velocity[1] = kball_speed_ * -sin(bounceAngle);
+	velocity_.set(kball_speed_ * cos(bounceAngle), kball_speed_ * -sin(bounceAngle));
 }
 
 void Ball::resize(int w, int h)

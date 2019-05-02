@@ -10,27 +10,15 @@ typedef enum {
 	LEFT
 } PongDirection;
 
-struct Point
-{
-	int x;
-	int y;
-	Point(int x, int y) : x(x), y(y) {};
-	Point() : x(0), y(0) {};
-	void set(int new_x, int new_y) {
-		x = new_x;
-		y = new_y;
-	}
-};
-
 class Paddle
 {
 private:
 	ofRectangle paddle_rect_;
-	ofColor color_ = ofColor(255, 255, 255);
+	ofColor color_;
 	int kpaddle_height_ = 80;; //height of paddle
 	int kpaddle_width_ = 10; //width of paddle
 	int kspeed = 3; //paddle speed
-	Point current_position_; //current position of paddle
+	ofVec2f current_position_; //current position of paddle
 	int score_; //player score
 	PongDirection current_direction_; //current direction by keypress
 public:
@@ -46,7 +34,7 @@ public:
 	void incScore(); //adds to score
 	PongDirection getCurrentDirection(); //direction getter
 	void setCurrentDirection(PongDirection new_direction); //direction setter
-	Point getPosition(); //position getter
+	ofVec2f getPosition(); //position getter
 	void setPosition(int x, int y); //position setter
 	void move(); //moves paddle based on direction
 	void resize(int w, int h); //resizes objects when window is resized

@@ -70,15 +70,14 @@ void Paddle::setCurrentDirection(PongDirection new_direction)
 	current_direction_ = new_direction;
 }
 
-Point Paddle::getPosition()
+ofVec2f Paddle::getPosition()
 {
 	return current_position_;
 }
 
 void Paddle::setPosition(int x, int y)
 {
-	current_position_.x = x;
-	current_position_.y = y;
+	current_position_.set(x, y);
 }
 
 void Paddle::move()
@@ -98,6 +97,19 @@ void Paddle::move()
 		break;
 	case NONE:
 		break;
+	}
+
+	if (current_position_.y < 0) {
+		setPosition(current_position_.x, 0);
+	}
+	else if (current_position_.y > ofGetWindowHeight()) {
+		setPosition(current_position_.x, ofGetWindowHeight());
+	} 
+	else if (current_position_.x < 0) {
+		setPosition(0, current_position_.y);
+	}
+	else if (current_position_.x > ofGetWindowWidth()) {
+		setPosition(ofGetWindowWidth(), current_position_.y);
 	}
 }
 

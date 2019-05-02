@@ -18,14 +18,16 @@ namespace pong {
 
 	class ofApp : public ofBaseApp {
 	private:
+		bool keyIsDown[255];
 		int window_width_ = ofGetWindowWidth();
 		int window_height_ = ofGetWindowHeight();
-		int kpaddle_width_ = 10;
+		int kball_radius_ = 10;
+		int kpaddle_width_ = 15;
 		int kpaddle_height_ = 80;
 		GameState current_state_ = IN_PROGRESS;
-		Paddle player1_ = Paddle(kpaddle_height_, kpaddle_width_, 0, window_height_ / 2, ofColor(0, 0, ofRandom(128, 255)));
-		Paddle player2_ = Paddle(kpaddle_height_, kpaddle_width_, window_width_, window_height_ / 2, ofColor(ofRandom(128, 255), 0, 0));
-		Ball ball_ = Ball(2 * kpaddle_width_);
+		Paddle player1_ = Paddle(kpaddle_height_, kpaddle_width_, 0, (window_height_ - kpaddle_height_) / 2, ofColor(0, 0, ofRandom(128, 255)));
+		Paddle player2_ = Paddle(kpaddle_height_, kpaddle_width_, window_width_ - kpaddle_width_, (window_height_ - kpaddle_height_) / 2, ofColor(ofRandom(128, 255), 0, 0));
+		Ball ball_ = Ball(2 * kball_radius_);
 
 		ofxPanel gui;
 
@@ -45,6 +47,7 @@ namespace pong {
 		void setup(); //set up the app
 
 		void update(); //updates positions of the ball and paddles
+		void collisionCheck(Paddle player); //checks for paddle collisions
 		void draw(); //draws the screen depending on the current game state
 
 		void keyPressed(int key); //checks for both players' keypresses
